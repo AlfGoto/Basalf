@@ -4,39 +4,79 @@ export default class basalf {
     constructor(key, clientKey = false) {
         this.key = key;
         this.clientKey = clientKey;
+        this.empty()
+    }
+    empty() {
         this.table = null;
         this.whereArg = null;
         this.limitArg = null;
+        this.content = null;
     }
+
+
+    async del(){
+        if (!this.table) return { error: "Select a table", results: null }
+        if (!this.whereArg) return { error: "use .where(...)", results: null }
+        let result;
+        let request = `${url}row?key=${this.key}&table=${this.table}&where=${this.whereArg}`
+        this.empty()
+        try {
+            return await sendRequest(request, 'DELETE')
+        } catch (error) {
+            result = { results: null, error: error.message || 'Unknown error' }
+            return result
+        }
+    }
+    async update(arg){
+        if (!this.table) return { error: "Select a table", results: null }
+        if (!this.whereArg) return { error: "use .where(...)", results: null }
+        if (!arg) return { error: "Pls enter an argument", results: null }
+        arg = JSON.stringify(arg)
+        let result;
+        let request = `${url}row?key=${this.key}&table=${this.table}&content=${arg}&where=${this.whereArg}`
+        this.empty()
+        try {
+            return await sendRequest(request, 'PATCH')
+        } catch (error) {
+            result = { results: null, error: error.message || 'Unknown error' }
+            return result
+        }
+    }
+
+
+    async insert(arg) {
+        if (!this.table) return { error: "Select a table", results: null }
+        if (!arg) return { error: "Pls enter an argument", results: null }
+        arg = JSON.stringify(arg)
+        let result;
+        let request = `${url}row?key=${this.key}&table=${this.table}&content=${arg}`
+        this.empty()
+        try {
+            return await sendRequest(request, 'POST')
+        } catch (error) {
+            result = { results: null, error: error.message || 'Unknown error' }
+            return result
+        }
+
+    }
+
+
+
+
+
 
     from(arg) {
         this.table = arg
-
         return this
-        // return {
-        //     select: (arg) => { this.select(arg) },
-        //     where: (arg) => { this.where(arg) },
-        //     limit: (arg) => { this.limit(arg) }
-        // }
     }
     where(arg) {
         this.whereArg = arg
-
         return this
-        // return {
-        //     select: (arg) => { this.select(arg) },
-        //     limit: (arg) => { this.limit(arg) }
-        // }
     }
     limit(arg) {
         this.limitArg = arg
-
         return this
-        // return {
-        //     select: (arg) => { this.select(arg) }
-        // }
     }
-
     async select(arg = null) {
         if (!this.table) return { error: "Select a table", results: null }
         let result;
@@ -52,14 +92,10 @@ export default class basalf {
             return result
         }
     }
-    empty() {
-        this.table = null;
-        this.whereArg = null;
-    }
 }
 
-async function sendRequest(req) {
-    const response = await fetch(req, { headers: headers }).catch(error => { return { results: null, error: error } })
+async function sendRequest(req, method = 'GET') {
+    const response = await fetch(req, { headers: headers, method: method }).catch(error => { return { results: null, error: error } })
     const json = await response.json()
     return { results: json, error: null }
 }
