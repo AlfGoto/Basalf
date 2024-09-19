@@ -16,65 +16,55 @@ Here's a basic example of how to use the Basalf library:
 
 ```javascript
 import Basalf from 'basalf';
-
-const apiKey = 'YOUR_API_KEY';
-
-const basalf = new Basalf(apiKey);
-```
-
-Insert a new record into the 'users' table
-```javascript
-basalf.from('users')
-  .insert({ name: 'John Doe', email: 'john.doe@example.com' })
-  .where({ id: 1 })
-  .then(response => {
-    if (response.error) {
-      console.error(response.error);
-    } else {
-      console.log('Record inserted successfully:', response.results);
-    }
-  });
-```
-
-Update an existing record in the 'users' table
-```javascript
-basalf.from('users')
-  .where({ id: 1 })
-  .update({ email: 'new_email@example.com' })
-  .then(response => {
-    if (response.error) {
-      console.error(response.error);
-    } else {
-      console.log('Record updated successfully:', response.results);
-    }
-  });
+const basalf = new Basalf('YOUR_API_KEY');
 ```
 
 Select all records from the 'users' table
 ```javascript
-basalf.from('users')
+let response = basalf.from('users')
   .select()
-  .then(response => {
-    if (response.error) {
-      console.error(response.error);
-    } else {
-      console.log('Users:', response.results);
-    }
-  });
   ```
+Options
+```javascript
+let response = basalf.from('users')
+  .where({id:5})
+  .limit(10)
+  .select('id, name')
+```
+
+Insert a new record into the 'users' table
+```javascript
+let response = basalf.from('users')
+  .where({ id: 1 })
+  .insert({ name: 'John Doe', email: 'john.doe@example.com' })
+```
+
+Update an existing record in the 'users' table
+```javascript
+let response = basalf.from('users')
+  .where({ id: 1 })
+  .update({ email: 'new_email@example.com' })
+```
+
 
 Delete a record from the 'users' table
 ```javascript
-basalf.from('users')
+let response = basalf.from('users')
   .where({ id: 2 })
   .del()
-  .then(response => {
+```
+
+Handle errors
+```javascript
+let response = basalf.from('users')
+  .where({ id: 2 })
+  .del()
+
     if (response.error) {
       console.error(response.error);
     } else {
       console.log('Record deleted successfully:', response.results);
     }
-  });
 ```
 
 ### API Reference
