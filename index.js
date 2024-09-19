@@ -14,7 +14,7 @@ export default class basalf {
     }
 
 
-    async del(){
+    async del() {
         if (!this.table) return { error: "Select a table", results: null }
         if (!this.whereArg) return { error: "use .where(...)", results: null }
         let result;
@@ -27,7 +27,7 @@ export default class basalf {
             return result
         }
     }
-    async update(arg){
+    async update(arg) {
         if (!this.table) return { error: "Select a table", results: null }
         if (!this.whereArg) return { error: "use .where(...)", results: null }
         if (!arg) return { error: "Pls enter an argument", results: null }
@@ -70,7 +70,8 @@ export default class basalf {
         return this
     }
     where(arg) {
-        this.whereArg = arg
+        this.whereArg = '+2+ytrfgfd' + JSON.stringify(arg).replace('{', '').replace('}', '').replaceAll(':', '=').replaceAll('"=','=').replaceAll(',"',',')
+        this.whereArg = this.whereArg.replace('+2+ytrfgfd"','').replaceAll(',', ' AND ')
         return this
     }
     limit(arg) {
