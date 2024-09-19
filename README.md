@@ -1,6 +1,6 @@
-**Basalf - Une bibliothèque JavaScript pour interagir avec l'API Basalf.fr**
+**Basalf - A JavaScript library to interact with the Basalf.fr API**
 
-Cette bibliothèque fournit une interface simple pour interagir avec l'API Basalf.fr. Elle vous permet d'insérer, de mettre à jour, de supprimer et de sélectionner des données dans vos tables Basalf.fr.
+This library provides a simple interface to interact with the Basalf.fr API. It allows you to insert, update, delete and select data in your Basalf.fr tables.
 
 ### Installation
 

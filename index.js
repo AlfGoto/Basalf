@@ -70,8 +70,7 @@ export default class basalf {
         return this
     }
     where(arg) {
-        this.whereArg = '+2+ytrfgfd' + JSON.stringify(arg).replace('{', '').replace('}', '').replaceAll(':', '=').replaceAll('"=','=').replaceAll(',"',',')
-        this.whereArg = this.whereArg.replace('+2+ytrfgfd"','').replaceAll(',', ' AND ')
+        this.whereArg = JSON.stringify(arg)
         return this
     }
     limit(arg) {
