@@ -23,7 +23,7 @@ const basalf = new Basalf(apiKey);
 ```
 
 Insert a new record into the 'users' table
-```
+```javascript
 basalf.from('users')
   .insert({ name: 'John Doe', email: 'john.doe@example.com' })
   .where({ id: 1 })
@@ -37,7 +37,7 @@ basalf.from('users')
 ```
 
 Update an existing record in the 'users' table
-```
+```javascript
 basalf.from('users')
   .where({ id: 1 })
   .update({ email: 'new_email@example.com' })
@@ -51,7 +51,7 @@ basalf.from('users')
 ```
 
 Select all records from the 'users' table
-```
+```javascript
 basalf.from('users')
   .select()
   .then(response => {
@@ -64,7 +64,7 @@ basalf.from('users')
   ```
 
 Delete a record from the 'users' table
-```
+```javascript
 basalf.from('users')
   .where({ id: 2 })
   .del()
